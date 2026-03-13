@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Helper — Test Form</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0e0e10; color: #e4e4e8;
+      display: flex; justify-content: center; padding: 48px 20px;
+    }
+    .container { width: 100%; max-width: 560px; }
+    h1 { font-size: 24px; margin-bottom: 6px; }
+    .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+    .card {
+      background: #1a1a1f; border: 1px solid #2a2a33;
+      border-radius: 12px; padding: 28px; margin-bottom: 24px;
+    }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .full { grid-column: 1 / -1; }
+    label { display: block; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%; padding: 10px 12px;
+      border: 1px solid #2a2a33; border-radius: 8px;
+      background: #111113; color: #e4e4e8;
+      font: inherit; font-size: 14px;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #6c8cff; }
+    .badge {
+      display: inline-block; padding: 3px 10px;
+      border-radius: 20px; font-size: 11px; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .badge-safe   { background: rgba(34,197,94,.12); color: #22c55e; }
+    .badge-danger { background: rgba(239,68,68,.12); color: #ef4444; }
+    button.submit-btn {
+      margin-top: 12px; padding: 10px 24px;
+      border: 1px solid #6c8cff; border-radius: 8px;
+      background: transparent; color: #6c8cff;
+      font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .note { font-size: 12px; color: #666; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test Forms for Automation Helper</h1>
+    <p class="subtitle">Open the extension popup and click "Scan Page" then "Autofill" to test.</p>
+
+    <!-- ========== SAFE FORM ========== -->
+    <div class="card">
+      <span class="badge badge-safe">SAFE — should autofill</span>
+      <div class="card-title">Contact Information</div>
+      <form id="safe-form" onsubmit="return false;">
+        <div class="grid">
+          <div>
+            <label for="t-name">Full Name</label>
+            <input type="text" id="t-name" name="name" placeholder="Your name" />
+          </div>
+          <div>
+            <label for="t-email">Email</label>
+            <input type="email" id="t-email" name="email" placeholder="you@example.com" />
+          </div>
+          <div>
+            <label for="t-phone">Phone</label>
+            <input type="tel" id="t-phone" name="phone" placeholder="+1 555-0100" />
+          </div>
+          <div>
+            <label for="t-company">Company</label>
+            <input type="text" id="t-company" name="company" placeholder="Acme Corp" />
+          </div>
+          <div class="full">
+            <label for="t-address">Street Address</label>
+            <input type="text" id="t-address" name="address" placeholder="123 Main St" />
+          </div>
+          <div>
+            <label for="t-city">City</label>
+            <input type="text" id="t-city" name="city" placeholder="San Francisco" />
+          </div>
+          <div>
+            <label for="t-state">State</label>
+            <input type="text" id="t-state" name="state" placeholder="CA" />
+          </div>
+          <div>
+            <label for="t-zip">Zip Code</label>
+            <input type="text" id="t-zip" name="zip" placeholder="94105" />
+          </div>
+          <div>
+            <label for="t-country">Country</label>
+            <input type="text" id="t-country" name="country" placeholder="US" />
+          </div>
+        </div>
+        <button class="submit-btn" type="submit">Submit (does nothing)</button>
+      </form>
+    </div>
+
+    <!-- ========== UNSAFE: PASSWORD ========== -->
+    <div class="card">
+      <span class="badge badge-danger">BLOCKED — has password field</span>
+      <div class="card-title">Login Form</div>
+      <form onsubmit="return false;">
+        <div class="grid">
+          <div>
+            <label for="t-login-email">Email</label>
+            <input type="email" id="t-login-email" name="email" />
+          </div>
+          <div>
+            <label for="t-login-pw">Password</label>
+            <input type="password" id="t-login-pw" name="password" />
+          </div>
+        </div>
+        <p class="note">The extension should detect the password field and refuse to autofill this page.</p>
+      </form>
+    </div>
+
+    <!-- ========== UNSAFE: PAYMENT ========== -->
+    <div class="card">
+      <span class="badge badge-danger">BLOCKED — has payment fields</span>
+      <div class="card-title">Payment Form</div>
+      <form onsubmit="return false;">
+        <div class="grid">
+          <div class="full">
+            <label for="t-cc">Card Number</label>
+            <input type="text" id="t-cc" name="card_number" autocomplete="cc-number" />
+          </div>
+          <div>
+            <label for="t-exp">Expiry</label>
+            <input type="text" id="t-exp" name="card_expiry" autocomplete="cc-exp" />
+          </div>
+          <div>
+            <label for="t-cvv">CVV</label>
+            <input type="text" id="t-cvv" name="cvv" autocomplete="cc-csc" />
+          </div>
+        </div>
+        <p class="note">The extension should detect payment fields and refuse to autofill this page.</p>
+      </form>
+    </div>
+
+    <!-- ========== UNSAFE: CAPTCHA ========== -->
+    <div class="card">
+      <span class="badge badge-danger">BLOCKED — has CAPTCHA</span>
+      <div class="card-title">Form with CAPTCHA</div>
+      <form onsubmit="return false;">
+        <div class="grid">
+          <div>
+            <label for="t-cap-name">Name</label>
+            <input type="text" id="t-cap-name" name="name" />
+          </div>
+          <div>
+            <label for="t-cap-email">Email</label>
+            <input type="email" id="t-cap-email" name="email" />
+          </div>
+        </div>
+        <!-- Fake reCAPTCHA element -->
+        <div class="g-recaptcha" data-sitekey="FAKE-KEY" style="margin-top:12px; padding:12px; border:1px dashed #ef4444; border-radius:8px; text-align:center; color:#ef4444; font-size:12px;">
+          [Simulated reCAPTCHA widget]
+        </div>
+        <p class="note">The extension should detect the CAPTCHA and refuse to autofill this page.</p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
