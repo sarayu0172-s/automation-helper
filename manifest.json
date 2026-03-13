@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "Automation Helper",
+  "version": "1.0.0",
+  "description": "Safely autofill web forms using your saved profile data. Stops when CAPTCHAs, passwords, or payment fields are detected.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "utils/safetyChecks.js",
+        "utils/fieldDetector.js",
+        "utils/autofillEngine.js",
+        "content.js"
+      ],
+      "css": [],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "commands": {
+    "scan-page": {
+      "suggested_key": { "default": "Alt+S" },
+      "description": "Scan page for form fields"
+    },
+    "autofill-page": {
+      "suggested_key": { "default": "Alt+F" },
+      "description": "Autofill detected fields"
+    },
+    "stop-automation": {
+      "suggested_key": { "default": "Alt+X" },
+      "description": "Stop automation"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
