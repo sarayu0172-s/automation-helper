@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safe Test Form — Automation Helper</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0e0e10; color: #e4e4e8;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 48px 20px; min-height: 100vh;
+    }
+    .container { width: 100%; max-width: 600px; }
+    h1 { font-size: 28px; margin-bottom: 6px; }
+    .sub { color: #888; font-size: 14px; margin-bottom: 12px; }
+    .instructions {
+      background: rgba(108,140,255,.08); border: 1px solid rgba(108,140,255,.2);
+      border-radius: 10px; padding: 16px; margin-bottom: 28px; font-size: 13px; line-height: 1.7;
+    }
+    .instructions strong { color: #6c8cff; }
+    .instructions ol { margin-left: 18px; }
+    .card {
+      background: #1a1a1f; border: 1px solid #2a2a33;
+      border-radius: 12px; padding: 28px; margin-bottom: 24px;
+    }
+    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .full { grid-column: 1 / -1; }
+    label { display: block; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
+    input, select, textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1px solid #2a2a33; border-radius: 8px;
+      background: #111113; color: #e4e4e8;
+      font: inherit; font-size: 14px;
+      transition: border-color .2s, outline .2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid rgba(108,140,255,.3);
+      outline-offset: 1px;
+      border-color: #6c8cff;
+    }
+    hr { border: none; border-top: 1px solid #2a2a33; margin: 24px 0; }
+    .section-label { font-size: 13px; font-weight: 600; color: #6c8cff; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .06em; }
+    .result-box {
+      margin-top: 16px; padding: 14px; border-radius: 8px;
+      background: rgba(34,197,94,.06); border: 1px solid rgba(34,197,94,.2);
+      font-size: 13px; color: #22c55e; display: none;
+    }
+    button.reset-btn {
+      margin-top: 16px; padding: 9px 20px;
+      border: 1px solid #ef4444; border-radius: 8px;
+      background: transparent; color: #ef4444;
+      font: inherit; font-weight: 600; cursor: pointer;
+      transition: background .15s;
+    }
+    button.reset-btn:hover { background: rgba(239,68,68,.1); }
+    .footer { margin-top: 32px; text-align: center; font-size: 12px; color: #555; }
+    .footer a { color: #6c8cff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Safe Test Form</h1>
+    <p class="sub">This page contains only safe fields — no passwords, payments, or CAPTCHAs.</p>
+
+    <div class="instructions">
+      <strong>How to test:</strong>
+      <ol>
+        <li>Open the Automation Helper popup (click the icon or press <strong>Alt+S</strong>)</li>
+        <li>Click <strong>Scan Page</strong> — you should see all fields detected</li>
+        <li>Click <strong>Preview</strong> to see what will be filled</li>
+        <li>Click <strong>Autofill</strong> — fields turn green when filled</li>
+        <li>Click <strong>Stop</strong> to clear highlights</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Registration Form</div>
+
+      <form id="test-form" onsubmit="return false;">
+        <div class="section-label">Personal Details</div>
+        <div class="grid">
+          <div>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Jane" autocomplete="given-name" />
+          </div>
+          <div>
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Doe" autocomplete="family-name" />
+          </div>
+          <div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" />
+          </div>
+          <div>
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 555-0100" autocomplete="tel" />
+          </div>
+        </div>
+
+        <hr />
+        <div class="section-label">Company</div>
+        <div class="grid">
+          <div class="full">
+            <label for="company">Company / Organization</label>
+            <input type="text" id="company" name="company" placeholder="Acme Corp" autocomplete="organization" />
+          </div>
+        </div>
+
+        <hr />
+        <div class="section-label">Address</div>
+        <div class="grid">
+          <div class="full">
+            <label for="address">Street Address</label>
+            <input type="text" id="address" name="address" placeholder="123 Main Street" autocomplete="address-line1" />
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="San Francisco" autocomplete="address-level2" />
+          </div>
+          <div>
+            <label for="state">State / Province</label>
+            <input type="text" id="state" name="state" placeholder="CA" autocomplete="address-level1" />
+          </div>
+          <div>
+            <label for="zip">Zip / Postal Code</label>
+            <input type="text" id="zip" name="zip" placeholder="94105" autocomplete="postal-code" />
+          </div>
+          <div>
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="US" autocomplete="country" />
+          </div>
+        </div>
+
+        <div id="result-box" class="result-box"></div>
+
+        <button type="button" class="reset-btn" onclick="document.getElementById('test-form').reset(); document.getElementById('result-box').style.display='none';">
+          Reset All Fields
+        </button>
+      </form>
+    </div>
+
+    <p class="footer">
+      Part of the <a href="#">Automation Helper</a> Chrome Extension test suite.
+      &middot; See also: <a href="test-form.html">Full test page</a> (includes blocked forms)
+    </p>
+  </div>
+</body>
+</html>
