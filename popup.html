@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Helper</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+      </div>
+      <div>
+        <h1 class="header-title">Automation Helper <span id="scan-counter" class="scan-counter hidden">0</span></h1>
+        <p class="header-sub">Safe form autofill</p>
+      </div>
+    </header>
+
+    <!-- Status Bar -->
+    <div id="status-bar" class="status-bar status-idle">
+      <span id="status-dot" class="status-dot"></span>
+      <span id="status-text">Ready — scan a page to begin</span>
+    </div>
+
+    <!-- Scan Results -->
+    <div id="scan-results" class="scan-results hidden">
+      <p class="results-heading">Detected fields</p>
+      <ul id="fields-list" class="fields-list"></ul>
+    </div>
+
+    <!-- Preview Panel -->
+    <div id="preview-panel" class="preview-panel hidden">
+      <p class="results-heading">Autofill preview</p>
+      <ul id="preview-list" class="preview-list"></ul>
+    </div>
+
+    <!-- Page info -->
+    <div id="page-info" class="page-info hidden">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span id="page-domain">—</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button id="btn-scan" class="btn btn-primary" title="Alt+S">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Scan Page
+      </button>
+      <button id="btn-preview" class="btn btn-secondary" disabled title="Preview before filling">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+      </button>
+      <button id="btn-fill" class="btn btn-success" disabled title="Alt+F">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Autofill
+      </button>
+      <button id="btn-stop" class="btn btn-danger" disabled title="Alt+X">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+        Stop
+      </button>
+    </div>
+
+    <!-- Stats row -->
+    <div id="stats-row" class="stats-row hidden">
+      <div class="stat-item">
+        <span class="stat-num" id="stat-scans">0</span>
+        <span class="stat-label">Scans</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-fills">0</span>
+        <span class="stat-label">Fills</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-fields">0</span>
+        <span class="stat-label">Fields</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-blocks">0</span>
+        <span class="stat-label">Blocks</span>
+      </div>
+    </div>
+
+    <!-- Footer links -->
+    <footer class="footer">
+      <a id="link-options" href="#" class="footer-link">Profile Settings</a>
+      <span class="footer-sep">·</span>
+      <a id="link-logs" href="#" class="footer-link">View Logs</a>
+      <span class="footer-sep">·</span>
+      <span class="footer-shortcuts">Alt+S / Alt+F / Alt+X</span>
+    </footer>
+
+    <!-- Log drawer -->
+    <div id="log-drawer" class="log-drawer hidden">
+      <div class="log-header">
+        <span>Activity Log</span>
+        <button id="btn-close-logs" class="btn-icon">&times;</button>
+      </div>
+      <pre id="log-output" class="log-output"></pre>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
